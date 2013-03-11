@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.jdt.debug.breakpointListeners">
+      <breakpointListener
+            class="visdebugger.histories.JavaBreakpointListener"
+            filter="*"            
+            id="VisDebugger.breakpointListener">
+      </breakpointListener>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            name="Show VisDebugger"
+            id="visdebugger.commands.showvis">
+         <defaultHandler
+               class="org.eclipse.ui.handlers.ShowViewHandler">
+            <parameter
+                  name="org.eclipse.ui.views.showView.viewId"
+                  value="VisDebugger.viewmain">
+            </parameter>
+         </defaultHandler>
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="Test4.toolbars.sampleToolbar">
+            <command
+                  commandId="org.eclipse.ui.views.showView"
+                  icon="icons/favicon.ico"
+                  tooltip="Visual Debugger"
+                  id="Show Visual Debugger">
+               <parameter
+                     name="org.eclipse.ui.views.showView.viewId"
+                     value="VisDebugger.viewmain">
+               </parameter>
+            </command>
+         </toolbar>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="visdebugger.histories.view.BraekpointHistoriesViewPart"
+            icon="icons/favicon.ico"
+            id="VisDebugger.viewmain"
+            name="Variable Histories"
+            restorable="true">
+      </view>
+      <view
+            class="visdebugger.arrays.view.ArraysViewPart"
+            icon="icons/favicon.ico"
+            id="VisDebugger.viewarray"
+            name="Arrays"
+            restorable="true">
+      </view>
+   </extension>
+	<extension point="org.eclipse.ui.popupMenus"> 
+      <objectContribution
+            objectClass="org.eclipse.jdt.debug.core.IJavaVariable"
+            id="VisDebugger.objectvisualizer">
+         <action
+               class="visdebugger.eclipseuiactions.ValueVisActionDelegate"
+               enablesFor="1"
+               icon="icons/favicon.ico"
+               id="visdebugger.VariableVisAction"
+               label="Visualize"
+               menubarPath="additions"
+               tooltip="Visualize the Variable Contents">
+         </action>
+      </objectContribution>
+      <objectContribution
+            objectClass="org.eclipse.jdt.debug.core.IJavaVariable"
+            id="VisDebugger.objectvisualizer">
+         <action
+               class="visdebugger.eclipseuiactions.VariableHistoryActionDelegate"
+               enablesFor="1"
+               icon="icons/favicon.ico"
+               id="visdebugger.VariableVisAction"
+               label="Show History"
+               menubarPath="additions"
+               tooltip="Show historical values...">
+         </action>
+      </objectContribution>
+      <objectContribution
+            objectClass="org.eclipse.debug.core.model.IWatchExpression"
+            id="VisDebugger.watchExpressionVisualizer">
+         <action
+               class="visdebugger.eclipseuiactions.ValueVisActionDelegate"
+               enablesFor="1"
+               icon="icons/favicon.ico"
+               id="visdebugger.WatchExpressionVisAction"
+               label="Visualize"
+               menubarPath="additions"
+               tooltip="Visualize the Expression Result">
+         </action>
+      </objectContribution>
+      <viewerContribution
+            targetID="#CompilationUnitRulerContext"
+            id="VisDebugger.compilationUnitRuler">
+         <action
+               class="visdebugger.eclipseuiactions.ToggleTrackingActionDelegate"
+               icon="icons/favicon.ico"
+               id="VisDebugger.compilationUnitRulerId"
+               label="Track values"
+               menubarPath="additions">
+         </action>
+      </viewerContribution> 
+      <viewerContribution
+            targetID="#CompilationUnitEditorContext"
+            id="org.eclipse.jdt.debug.ui.CUVisualizationActions">
+         <visibility>
+            <and>
+               <systemProperty
+                     name="org.eclipse.jdt.debug.ui.debuggerActive"
+                     value="true">
+               </systemProperty>
+               <objectClass
+                     name="org.eclipse.jface.text.ITextSelection">
+               </objectClass>
+            </and>
+         </visibility>
+         <action
+               class="visdebugger.eclipseuiactions.VisualizeEditorValueAction"
+               helpContextId="inspect_action_context"
+               icon="icons/favicon.ico"
+               id="visdebugger.Visualize"
+               label="Visualize"
+               menubarPath="additions">
+         </action>
+      </viewerContribution>
+      <objectContribution
+            id="VisDebugger.objectrefererncevisualizer"
+            objectClass="com.sun.jdi.ObjectReference">
+         <action
+               class="visdebugger.eclipseuiactions.ObjectReferenceVisActionDelegate"
+               enablesFor="1"
+               icon="icons/favicon.ico"
+               id="visdebugger.ObjectReferenceVisAction"
+               label="Visualize"
+               menubarPath="additions"
+               tooltip="Visualize the Variable Contents">
+         </action>
+      </objectContribution>
+
+    </extension>
+</plugin>
